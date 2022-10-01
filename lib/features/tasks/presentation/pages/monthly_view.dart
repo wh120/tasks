@@ -19,16 +19,17 @@ class MonthlyView extends StatelessWidget {
     );
   }
 
+
   Widget buildBody() {
+    EventsStore store = EventsStore();
+    store.addEvent(DateTime.now(), 'Hi');
     return Calender(
         onDayTap: (date){
           Navigation.push(DailyView(date: date,));
         },
         startMonth: 1,
         year: date.year,
-        events: [
-          Event(name: 'name', dateTime: date , color: AppColors.red)
-        ]
+        events: store
     );
   }
 }

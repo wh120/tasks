@@ -9,7 +9,7 @@ class Calender extends StatefulWidget {
   final int year;
   final ValueChanged<DateTime> onDayTap;
 
-  final List<Event> events;
+  final EventsStore events;
   const Calender(
       {Key? key,
       required this.events,
@@ -25,17 +25,25 @@ class Calender extends StatefulWidget {
 class _CalenderState extends State<Calender> {
   late DateTime dateTime;
 
+
   @override
   void initState() {
     dateTime = DateTime(widget.year, widget.startMonth, 1);
+
     super.initState();
+
   }
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+
+
         itemCount: dateTime.getRemainingMonthCount(),
         itemBuilder: (context, index) {
+
+
+
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -54,6 +62,9 @@ class _CalenderState extends State<Calender> {
   }
 
   buildMonthView(DateTime date) {
+    List<Event> eventList =[];
+    eventList = widget.events.getEvents(date);
+
     List<Widget> dayNames = List.generate(7, (index) {
       return Center(child: Text(date.days[date.firstWeekDayOfMonth() + index]));
     });
@@ -64,7 +75,7 @@ class _CalenderState extends State<Calender> {
       return TableRow(
           children: List.generate(weeks[i].length, (index) {
         if (weeks[i][index] == null) return Text('');
-        return buildTableCell(weeks[i][index]!);
+        return buildTableCell(weeks[i][index]! , isSelected: eventList.where((element) => element.dateTime.isSameDate(weeks[i][index]!)).length>0);
       }));
     });
 
@@ -80,19 +91,28 @@ class _CalenderState extends State<Calender> {
     );
   }
 
-  buildTableCell(DateTime date) {
+  Widget buildTableCell(DateTime date , {bool isSelected = false}) {
     return TableCell(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15),
-          child: InkWell(
-              onTap: () {
-                widget.onDayTap(date);
-              },
-              child: Center(
-                  child: Text(
-                date.day.toString(),
-                style: AppTheme.headline5,
-              ))),
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: ClipOval(
+              child: Container(
+                color: isSelected?AppColors.primary:null,
+                child: Padding(
+                  padding: const EdgeInsets.all( 7),
+                  child: InkWell(
+                      onTap: () {
+                        widget.onDayTap(date);
+                      },
+                      child: Text(
+                        date.day.toString(),
+                        style: AppTheme.headline5,
+                      )),
+                ),
+              ),
+            ),
+          ),
         ));
   }
 }
@@ -104,3 +124,42 @@ class Event {
 
   Event({required this.name, required this.dateTime, this.color});
 }
+
+class EventsStore{
+   Map<String,Map<String,List<Event>>> _events={};
+
+   addEvent(DateTime dateTime , String name){
+    Event event =Event(
+        name: name,
+        dateTime: dateTime,
+        color: AppColors.primary
+    );
+    if(_events.containsKey(dateTime.year.toString())){
+
+      if(_events[dateTime.year.toString()]!.containsKey(dateTime.month.toString())){
+        _events[dateTime.year.toString()]![dateTime.month.toString()]!.add(event);
+      }else{
+        _events[dateTime.year.toString()]!.putIfAbsent(dateTime.month.toString(), () => [event]);
+      }
+    }
+    else{
+      _events.putIfAbsent(dateTime.year.toString(), () => {
+        dateTime.month.toString():[event]
+      });
+    }
+  }
+
+   List<Event> getEvents(DateTime dateTime){
+    if(_events.containsKey(dateTime.year.toString())){
+      if(_events[dateTime.year.toString()]!.containsKey(dateTime.month.toString())) {
+        List<Event> list  = _events[dateTime.year.toString()]![ dateTime.month.toString()]!;
+        return list;
+      } else {
+        return [];
+      }
+    }
+    else return [];
+  }
+
+}
+

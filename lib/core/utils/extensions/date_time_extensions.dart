@@ -65,6 +65,10 @@ extension DateTimeExtensions on DateTime {
     return DateTime(this.year,  this.month, d);
   }
 
+  bool isSameDate( DateTime date) {
+    return this.day == date.day && this.month == date.month && this.year == date.year ;
+  }
+
   List<List<DateTime?>> getWeeks(){
     List<List<DateTime?>> weeks=[];
     List<DateTime?> week=[];
