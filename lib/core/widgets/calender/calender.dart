@@ -3,16 +3,19 @@ import 'package:task/core/utils/extensions/date_time_extensions.dart';
 
 import '../../constants/AppTheme.dart';
 import '../../constants/appcolors.dart';
+import '../../utils/navigation/navigation.dart';
+import 'daily_calender.dart';
+import 'data/event_model.dart';
 
 class Calender extends StatefulWidget {
   final int startMonth;
   final int year;
   final ValueChanged<DateTime> onDayTap;
 
-  final EventsStore events;
+  final EventsStore eventsStore;
   const Calender(
       {Key? key,
-      required this.events,
+      required this.eventsStore,
       this.startMonth = 1,
       required this.year,
       required this.onDayTap})
@@ -63,7 +66,7 @@ class _CalenderState extends State<Calender> {
 
   buildMonthView(DateTime date) {
     List<Event> eventList =[];
-    eventList = widget.events.getEvents(date);
+    eventList = widget.eventsStore.getMonthEvents(date);
 
     List<Widget> dayNames = List.generate(7, (index) {
       return Center(child: Text(date.days[date.firstWeekDayOfMonth() + index]));
@@ -103,6 +106,10 @@ class _CalenderState extends State<Calender> {
                   padding: const EdgeInsets.all( 7),
                   child: InkWell(
                       onTap: () {
+                        Navigation.push(DailyCalender(
+                          date: date,
+                          store: widget.eventsStore,
+                        ));
                         widget.onDayTap(date);
                       },
                       child: Text(
@@ -117,49 +124,5 @@ class _CalenderState extends State<Calender> {
   }
 }
 
-class Event {
-  final DateTime dateTime;
-  final Color? color;
-  final String name;
 
-  Event({required this.name, required this.dateTime, this.color});
-}
-
-class EventsStore{
-   Map<String,Map<String,List<Event>>> _events={};
-
-   addEvent(DateTime dateTime , String name){
-    Event event =Event(
-        name: name,
-        dateTime: dateTime,
-        color: AppColors.primary
-    );
-    if(_events.containsKey(dateTime.year.toString())){
-
-      if(_events[dateTime.year.toString()]!.containsKey(dateTime.month.toString())){
-        _events[dateTime.year.toString()]![dateTime.month.toString()]!.add(event);
-      }else{
-        _events[dateTime.year.toString()]!.putIfAbsent(dateTime.month.toString(), () => [event]);
-      }
-    }
-    else{
-      _events.putIfAbsent(dateTime.year.toString(), () => {
-        dateTime.month.toString():[event]
-      });
-    }
-  }
-
-   List<Event> getEvents(DateTime dateTime){
-    if(_events.containsKey(dateTime.year.toString())){
-      if(_events[dateTime.year.toString()]!.containsKey(dateTime.month.toString())) {
-        List<Event> list  = _events[dateTime.year.toString()]![ dateTime.month.toString()]!;
-        return list;
-      } else {
-        return [];
-      }
-    }
-    else return [];
-  }
-
-}
 

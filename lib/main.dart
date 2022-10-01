@@ -1,28 +1,15 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:task/start_up.dart';
+
 
 import 'core/constants/AppTheme.dart';
 import 'core/constants/Keys.dart';
 import 'features/home_page/presentation/pages/home_page.dart';
 
-void main() {
-  runApp(const Responsive());
-}
-
-class Responsive extends StatelessWidget {
-  const Responsive({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-
-    return ScreenUtilInit(
-      designSize: const Size(100, 100),
-      //minTextAdapt: true ,
-      builder: () =>  MyApp(),
-    //  child: MyApp(),
-    );
-  }
+void main() async{
+  await StartUp.setup();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

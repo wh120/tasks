@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'appcolors.dart';
 
 class AppStyles {
-  static double contentVerticalPaddingValue = 1.5.h;
-  static double contentHorizontalPaddingValue = 2.5.w;
-
-  static EdgeInsetsGeometry horizontalPadding =
-      EdgeInsets.symmetric(horizontal: 5.w);
-  static EdgeInsetsGeometry zeroPadding = EdgeInsets.zero;
-  static EdgeInsetsGeometry verticalPadding =
-      EdgeInsets.symmetric(vertical: 5.w);
-  static EdgeInsetsGeometry allPadding =
-      EdgeInsets.symmetric(vertical: 5.w, horizontal: 5.w);
-  static EdgeInsetsGeometry contentPadding = EdgeInsets.symmetric(
-      vertical: contentVerticalPaddingValue,
-      horizontal: contentHorizontalPaddingValue);
-  static EdgeInsetsGeometry contentVerticalPadding = EdgeInsets.symmetric(
-    vertical: contentVerticalPaddingValue,
-  );
-  static EdgeInsetsGeometry contentHorizontalPadding =
-      EdgeInsets.symmetric(horizontal: contentHorizontalPaddingValue);
+  // static double contentVerticalPaddingValue = 1.5.h;
+  // static double contentHorizontalPaddingValue = 2.5.w;
+  //
+  // static EdgeInsetsGeometry horizontalPadding =
+  //     EdgeInsets.symmetric(horizontal: 5.w);
+  // static EdgeInsetsGeometry zeroPadding = EdgeInsets.zero;
+  // static EdgeInsetsGeometry verticalPadding =
+  //     EdgeInsets.symmetric(vertical: 5.w);
+  // static EdgeInsetsGeometry allPadding =
+  //     EdgeInsets.symmetric(vertical: 5.w, horizontal: 5.w);
+  // static EdgeInsetsGeometry contentPadding = EdgeInsets.symmetric(
+  //     vertical: contentVerticalPaddingValue,
+  //     horizontal: contentHorizontalPaddingValue);
+  // static EdgeInsetsGeometry contentVerticalPadding = EdgeInsets.symmetric(
+  //   vertical: contentVerticalPaddingValue,
+  // );
+  // static EdgeInsetsGeometry contentHorizontalPadding =
+  //     EdgeInsets.symmetric(horizontal: contentHorizontalPaddingValue);
+  //
   static BorderRadius borderRadius8 = BorderRadius.circular(8);
   static BorderRadius borderRadius = BorderRadius.circular(10);
   static BorderRadius cardRadius = BorderRadius.circular(15);

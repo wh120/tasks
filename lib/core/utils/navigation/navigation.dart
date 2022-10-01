@@ -2,7 +2,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants/Keys.dart';
 import '../../constants/appcolors.dart';
@@ -65,7 +64,7 @@ class Navigation {
                 // tileMode: TileMode.decal
               ),
             ),
-            height: 75.h,
+        //    height: 75.h,
             child:
 
             Column(
@@ -75,8 +74,8 @@ class Navigation {
                   height: 5,
                 ),
                 Divider(
-                  indent: 45.w,
-                  endIndent: 45.w,
+                  // indent: 45.w,
+                  // endIndent: 45.w,
                   thickness: 3,
                   color: Colors.grey,
                 ),
@@ -90,58 +89,5 @@ class Navigation {
         });
   }
 
-  static showConfirmBottomSheet(
-      {context, String? text, ValueChanged<bool>? onClicked, Widget? form}) {
-    showModalBottomSheet(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        elevation: 10,
-        enableDrag: true,
-        isScrollControlled: true,
-        context: context,
-        builder: (BuildContext bc) {
-          return Padding(
-            padding: EdgeInsets.only(
-                bottom: 3.0.h, top: 3.0.h, right: 3.0.w, left: 3.0.w),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(bottom: 3.0.h),
-                  child: Text(
-                    text ?? "",
-                  ),
-                ),
-                form ?? Container(),
-                Container(
-                  child: new Wrap(
-                    direction: Axis.horizontal,
-                    children: <Widget>[
-                      ElevatedButton(
-                        child: Text('Confirm') ,
-                        onPressed: () {
-                          onClicked!(true);
-                          Navigator.pop(context);
-                          // cubit.finishTask(task);
-                        },
-                      ),
-                      ElevatedButton(
 
-                        child: Text('Cancel'),
-                        onPressed: () {
-                          onClicked!(false);
-                          Navigator.pop(context);
-                          // cubit.finishTask(task);
-                        },
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
-        });
-  }
 }

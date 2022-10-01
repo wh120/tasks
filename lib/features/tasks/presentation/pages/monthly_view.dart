@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:task/core/utils/extensions/date_time_extensions.dart';
 import 'package:task/core/widgets/calender/calender.dart';
 import '../../../../core/constants/appcolors.dart';
 import '../../../../core/utils/navigation/navigation.dart';
+import '../../../../core/widgets/calender/data/event_model.dart';
 import 'daily_view.dart';
 
 
@@ -21,15 +24,16 @@ class MonthlyView extends StatelessWidget {
 
 
   Widget buildBody() {
-    EventsStore store = EventsStore();
+    EventsStore store =  GetIt.I<EventsStore>();
     store.addEvent(DateTime.now(), 'Hi');
+    store.addEvent(DateTime.now().nextDay(), 'Hello');
     return Calender(
         onDayTap: (date){
-          Navigation.push(DailyView(date: date,));
+
         },
         startMonth: 1,
         year: date.year,
-        events: store
+        eventsStore: store
     );
   }
 }

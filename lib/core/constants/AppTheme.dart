@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 import 'appcolors.dart';
 import 'app_styles.dart';
@@ -27,8 +27,8 @@ class AppTheme {
     textTheme: textTheme,
     appBarTheme: appBarTheme,
     primaryTextTheme: textTheme,
-    iconTheme: IconThemeData(color: AppColors.primary, size: 6.0.r),
-    primaryIconTheme: IconThemeData(color: AppColors.white, size: 5.0.r),
+    iconTheme: IconThemeData(color: AppColors.primary),
+    primaryIconTheme: IconThemeData(color: AppColors.white),
     elevatedButtonTheme: elevatedButtonThemeData(),
     textButtonTheme: textButtonThemeData(),
     outlinedButtonTheme: outlinedButtonTheme,
@@ -42,7 +42,7 @@ class AppTheme {
   static Color scaffoldBackgroundColor = AppColors.white;
 
   static CardTheme cardTheme = CardTheme(
-    margin: EdgeInsets.only(bottom: AppStyles.contentVerticalPaddingValue),
+    // margin: EdgeInsets.only(bottom: AppStyles.contentVerticalPaddingValue),
     color: AppColors.primary,
     elevation: 1,
     shadowColor: AppColors.primary,
