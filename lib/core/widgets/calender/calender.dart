@@ -11,15 +11,12 @@ import 'data/event_model.dart';
 class Calender extends StatefulWidget {
   final int startMonth;
   final int year;
-  final ValueChanged<DateTime> onDayTap;
-
 
   const Calender(
       {Key? key,
 
       this.startMonth = 1,
-      required this.year,
-      required this.onDayTap})
+      required this.year,})
       : super(key: key);
 
   @override
@@ -42,11 +39,8 @@ class _CalenderState extends State<Calender> {
   Widget build(BuildContext context) {
     return ListView.builder(
 
-
         itemCount: dateTime.getRemainingMonthCount(),
         itemBuilder: (context, index) {
-
-
 
           return Padding(
             padding: const EdgeInsets.all(8.0),
@@ -111,16 +105,16 @@ class _CalenderState extends State<Calender> {
               child: Padding(
                 padding: const EdgeInsets.all( 7),
                 child: InkWell(
-                    onTap: () {
-                      Navigation.push(DailyCalender(
+                    onTap: ()async {
+                      await Navigation.push(DailyCalender(
                         date: date,
-
                       ));
-                      widget.onDayTap(date);
+                      setState(() {});
+
                     },
                     child: Text(
                       date.day.toString(),
-                      style: AppTheme.headline5,
+                      style: AppTheme.headline5.copyWith(color: isSelected?Colors.white:null),
                     )),
               ),
             ),

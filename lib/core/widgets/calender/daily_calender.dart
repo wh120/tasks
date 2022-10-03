@@ -43,8 +43,8 @@ class _DailyCalenderState extends State<DailyCalender> {
         onPressed: ()async {
           await MyDialog.showWidgetDialog(
             body: AddTaskDialog(initialDateTime:selectedDateTime )
-            ,);
-          BlocProvider.of<CalenderCubit>(context, listen: false).getDayEvents(widget.date);
+            );
+          BlocProvider.of<CalenderCubit>(context, listen: false).getDayEvents(selectedDateTime);
 
         },
         child: const Icon(Icons.add),
@@ -99,7 +99,7 @@ class _DailyCalenderState extends State<DailyCalender> {
                     shape: BoxShape.circle),
                 child: Text(
                   dateTime.day.toString(),
-                  style: AppTheme.bodyText1,
+                  style: AppTheme.bodyText1.copyWith(color: isSelected?Colors.white:null),
                 ),
               ),
             ],

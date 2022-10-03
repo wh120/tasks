@@ -5,7 +5,6 @@ import 'package:task/core/widgets/calender/calender.dart';
 import '../../../../core/constants/appcolors.dart';
 import '../../../../core/utils/navigation/navigation.dart';
 import '../../../../core/widgets/calender/data/event_model.dart';
-import 'daily_view.dart';
 
 
 class MonthlyView extends StatelessWidget {
@@ -24,16 +23,9 @@ class MonthlyView extends StatelessWidget {
 
 
   Widget buildBody() {
-    EventsStore store =  GetIt.I<EventsStore>();
-    store.addEvent(DateTime.now(), 'Hi');
-    store.addEvent(DateTime.now().nextDay(), 'Hello');
     return Calender(
-        onDayTap: (date){
-
-        },
         startMonth: 1,
         year: date.year,
-
     );
   }
 }
