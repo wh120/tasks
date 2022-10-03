@@ -24,8 +24,9 @@ class AppStyles {
   //
   static BorderRadius borderRadius8 = BorderRadius.circular(8);
   static BorderRadius borderRadius = BorderRadius.circular(10);
-  static BorderRadius cardRadius = BorderRadius.circular(15);
+  static BorderRadius cardRadius = BorderRadius.circular(10);
   static BorderRadius cardRadius20 = BorderRadius.circular(20);
+  static BorderRadius cardRadius100  =BorderRadius.circular(100);
   static List<BoxShadow> primaryShadow = [
     BoxShadow(
       color: AppColors.grey.shade50.withOpacity(0.3),

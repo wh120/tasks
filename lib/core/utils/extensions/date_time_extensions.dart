@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 extension DateTimeExtensions on DateTime {
   static List months = [
   '',
@@ -49,9 +51,12 @@ extension DateTimeExtensions on DateTime {
   String printDayOFWeek(){
     return days[this.weekday];
   }
+  String printTime(){
+    return DateFormat('hh:mm a').format(this);
+  }
 
    DateTime nextDay( ) {
-    return DateTime(this.year, this.month , this.day+1);
+    return DateTime(this.year, this.month , this.day+1 ,this.hour , this.minute , this.second);
   }
 
   DateTime addMonth( int m) {
@@ -67,6 +72,10 @@ extension DateTimeExtensions on DateTime {
 
   bool isSameDate( DateTime date) {
     return this.day == date.day && this.month == date.month && this.year == date.year ;
+  }
+
+  DateTime AddHours( int h) {
+    return DateTime(this.year, this.month  , this.day ,this.hour+h);
   }
 
   List<List<DateTime?>> getWeeks(){

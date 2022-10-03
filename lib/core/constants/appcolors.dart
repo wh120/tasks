@@ -72,7 +72,7 @@ class AppColors {
 
   //Text Theme
   static const Color lightText = Color(0xFF4B4B4B);
-  static const Color darkText = Color(0xFF4A4A4A);
+  static const Color darkText = Color(0xFF3A3A3A);
   static const Color darkerText = Color(0xFF17262A);
   static const Color blackText = Color(0xFF022424);
 }

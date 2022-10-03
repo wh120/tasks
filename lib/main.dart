@@ -1,15 +1,34 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task/start_up.dart';
 
 
 import 'core/constants/AppTheme.dart';
 import 'core/constants/Keys.dart';
+import 'core/widgets/calender/domain/cubits/calender_cubit.dart';
 import 'features/home_page/presentation/pages/home_page.dart';
 
 void main() async{
   await StartUp.setup();
-  runApp(const MyApp());
+  runApp(const BlocProviderWidget());
+}
+
+class BlocProviderWidget extends StatelessWidget {
+  const BlocProviderWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<CalenderCubit>(
+          create: (BuildContext context) => CalenderCubit(),
+        ),
+
+      ],
+      child: MyApp(),
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {

@@ -28,7 +28,6 @@ class DailyView extends StatelessWidget {
       children: [
         DailyCalender(
           date: date,
-          store: store,
         ),
         FlutterLogo(),
       ],

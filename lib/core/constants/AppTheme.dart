@@ -144,12 +144,11 @@ class AppTheme {
 
   static TextStyle headline4 = const TextStyle(
     fontFamily: font,
-
-    /// fontWeight: FontWeight.bold,
-    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    fontSize: 20,
     letterSpacing: 0.4,
     // height: 1.5,
-    color: AppColors.blackText,
+    color: AppColors.darkText,
   );
 
   static TextStyle headline5 = TextStyle(

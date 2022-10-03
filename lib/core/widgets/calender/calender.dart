@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:task/core/utils/extensions/date_time_extensions.dart';
 
 import '../../constants/AppTheme.dart';
@@ -12,10 +13,10 @@ class Calender extends StatefulWidget {
   final int year;
   final ValueChanged<DateTime> onDayTap;
 
-  final EventsStore eventsStore;
+
   const Calender(
       {Key? key,
-      required this.eventsStore,
+
       this.startMonth = 1,
       required this.year,
       required this.onDayTap})
@@ -66,7 +67,8 @@ class _CalenderState extends State<Calender> {
 
   buildMonthView(DateTime date) {
     List<Event> eventList =[];
-    eventList = widget.eventsStore.getMonthEvents(date);
+    ///todo add state management
+    eventList = GetIt.I<EventsStore>().getMonthEvents(date);
 
     List<Widget> dayNames = List.generate(7, (index) {
       return Center(child: Text(date.days[date.firstWeekDayOfMonth() + index]));
@@ -99,24 +101,27 @@ class _CalenderState extends State<Calender> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Center(
-            child: ClipOval(
-              child: Container(
-                color: isSelected?AppColors.primary:null,
-                child: Padding(
-                  padding: const EdgeInsets.all( 7),
-                  child: InkWell(
-                      onTap: () {
-                        Navigation.push(DailyCalender(
-                          date: date,
-                          store: widget.eventsStore,
-                        ));
-                        widget.onDayTap(date);
-                      },
-                      child: Text(
-                        date.day.toString(),
-                        style: AppTheme.headline5,
-                      )),
-                ),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: isSelected ? AppColors.primary : null,
+                  // borderRadius: AppStyles.cardRadius100,
+                  shape: BoxShape.circle),
+
+
+              child: Padding(
+                padding: const EdgeInsets.all( 7),
+                child: InkWell(
+                    onTap: () {
+                      Navigation.push(DailyCalender(
+                        date: date,
+
+                      ));
+                      widget.onDayTap(date);
+                    },
+                    child: Text(
+                      date.day.toString(),
+                      style: AppTheme.headline5,
+                    )),
               ),
             ),
           ),

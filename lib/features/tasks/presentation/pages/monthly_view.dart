@@ -33,7 +33,7 @@ class MonthlyView extends StatelessWidget {
         },
         startMonth: 1,
         year: date.year,
-        eventsStore: store
+
     );
   }
 }
