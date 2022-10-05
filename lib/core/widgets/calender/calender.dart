@@ -128,28 +128,38 @@ class _CalenderState extends State<Calender> {
 
   Widget buildTableCell(DateTime date , {bool isSelected = false}) {
     return TableCell(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Container(
-              decoration: BoxDecoration(
-                  color: isSelected ? AppColors.primary : null,
-                  // borderRadius: AppStyles.cardRadius100,
-                  shape: BoxShape.circle),
-              child: Padding(
-                padding: const EdgeInsets.all( 7),
-                child: InkWell(
-                    onTap: ()async {
-                      await Navigation.push(DailyCalender(
-                        date: date,
-                      ));
-                      setState(() {});
+        child: Container(
+          decoration:date.isSameDate(DateTime.now())? BoxDecoration(
+            border: Border.all(
+              color: AppColors.secondary, //                   <--- border color
+              width: 2.0,
+            ),
+          ):null,
 
-                    },
-                    child: Text(
-                      date.day.toString(),
-                      style: AppTheme.headline5.copyWith(color: isSelected?Colors.white:null),
-                    )),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+
+              child: Container(
+                decoration: BoxDecoration(
+                    color: isSelected ? AppColors.primary : null,
+                    // borderRadius: AppStyles.cardRadius100,
+                    shape: BoxShape.circle),
+                child: Padding(
+                  padding: const EdgeInsets.all( 7),
+                  child: InkWell(
+                      onTap: ()async {
+                        await Navigation.push(DailyCalender(
+                          date: date,
+                        ));
+                        setState(() {});
+
+                      },
+                      child: Text(
+                        date.day.toString(),
+                        style: AppTheme.headline5.copyWith(color: isSelected?Colors.white:null),
+                      )),
+                ),
               ),
             ),
           ),
