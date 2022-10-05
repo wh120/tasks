@@ -131,7 +131,7 @@ class _CalenderState extends State<Calender> {
         child: Container(
           decoration:date.isSameDate(DateTime.now())? BoxDecoration(
             border: Border.all(
-              color: AppColors.secondary, //                   <--- border color
+              color: AppColors.primary, //                   <--- border color
               width: 2.0,
             ),
           ):null,
