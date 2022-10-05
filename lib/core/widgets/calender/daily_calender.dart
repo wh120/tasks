@@ -79,30 +79,38 @@ class _DailyCalenderState extends State<DailyCalender> {
         });
   }
 
-  Padding buildCard(DateTime dateTime, {bool isSelected = false}) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Text(
-                dateTime.printDayOFWeek(),
-                style: AppTheme.caption,
-              ),
-              Container(
-                padding: const EdgeInsets.all(10.0),
-                decoration: BoxDecoration(
-                    color: isSelected ? AppColors.primary : null,
-                    // borderRadius: AppStyles.cardRadius100,
-                    shape: BoxShape.circle),
-                child: Text(
-                  dateTime.day.toString(),
-                  style: AppTheme.bodyText1.copyWith(color: isSelected?Colors.white:null),
+   buildCard(DateTime dateTime, {bool isSelected = false}) {
+    return Container(
+      decoration:dateTime.isSameDate(DateTime.now())? BoxDecoration(
+        border: Border.all(
+          color: AppColors.primary, //                   <--- border color
+          width: 2.0,
+        ),
+      ):null,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Text(
+                  dateTime.printDayOFWeek(),
+                  style: AppTheme.caption,
                 ),
-              ),
-            ],
+                Container(
+                  padding: const EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                      color: isSelected ? AppColors.primary : null,
+                      // borderRadius: AppStyles.cardRadius100,
+                      shape: BoxShape.circle),
+                  child: Text(
+                    dateTime.day.toString(),
+                    style: AppTheme.bodyText1.copyWith(color: isSelected?Colors.white:null),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
