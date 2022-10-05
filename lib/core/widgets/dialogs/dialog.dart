@@ -120,7 +120,9 @@ class MyDialog {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0))),
 
-            content: body,
+            content: SingleChildScrollView(
+              child: body,
+            ),
           );
         });
 

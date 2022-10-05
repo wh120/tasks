@@ -14,9 +14,6 @@ class MonthlyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(date.year.toString()),
-      ),
       body: buildBody(),
     );
   }

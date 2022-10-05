@@ -11,7 +11,6 @@ class CalenderCubit extends Cubit<CalenderState> {
 
   getDayEvents(DateTime dateTime)async{
     emit(GetEventsLoading());
-    await Future.delayed(Duration(seconds: 1));
     List<Event> events =   GetIt.I<EventsStore>().getDayEvents(dateTime);
     emit(GetEventsSuccessfully(events));
   }

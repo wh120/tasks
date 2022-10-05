@@ -8,6 +8,7 @@ import 'core/constants/AppTheme.dart';
 import 'core/constants/Keys.dart';
 import 'core/widgets/calender/domain/cubits/calender_cubit.dart';
 import 'features/home_page/presentation/pages/home_page.dart';
+import 'features/tasks/presentation/pages/monthly_view.dart';
 
 void main() async{
   await StartUp.setup();
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
       navigatorKey: Keys.navigatorKey,
       theme: AppTheme.theme,
       title: 'Tasks app',
-      home: const HomePage( ),
+      home:   MonthlyView( date:  DateTime.now(), ),
     );
   }
 }

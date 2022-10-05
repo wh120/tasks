@@ -27,36 +27,72 @@ class _CalenderState extends State<Calender> {
   late DateTime dateTime;
 
 
+  ValueNotifier<int> lastYear = ValueNotifier<int>(0);
+
+  Widget yearWidget= Container() ;
   @override
   void initState() {
     dateTime = DateTime(widget.year, widget.startMonth, 1);
+    lastYear.value =widget.year;
+
 
     super.initState();
+  }
 
+  Widget buildYear(int year){
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      lastYear.value = year;
+    });
+
+      return Column(
+        children: [
+          Divider(),
+          Center(child: Text(year.toString() , style: AppTheme.headline6,)),
+          Divider(),
+        ],
+      );
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return Scaffold(
+      appBar: AppBar(
+        title: ValueListenableBuilder(
+            valueListenable: lastYear,
+            builder: (context, value, child) {
+              return Text(value.toString());
+            },
 
-        itemCount: dateTime.getRemainingMonthCount(),
-        itemBuilder: (context, index) {
+        ),
+      ),
+      body: ListView.builder(
+          //itemCount: dateTime.getRemainingMonthCount(),
+          itemBuilder: (context, index) {
 
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(dateTime.addMonth(index).printMonth(),
-                      style: AppTheme.headline6),
-                ),
-                buildMonthView(dateTime.addMonth(index))
-              ],
-            ),
-          );
-        });
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+
+                  if(dateTime.addMonth(index-1).year != dateTime.addMonth(index).year)
+                    buildYear(dateTime.addMonth(index).year),
+                    // Text(dateTime.year.toString() , style: AppTheme.headline6,),
+
+
+
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(dateTime.addMonth(index).printMonth(),
+                        style: AppTheme.headline6),
+                  ),
+                  buildMonthView(dateTime.addMonth(index))
+                ],
+              ),
+            );
+          }),
+    );
   }
 
   buildMonthView(DateTime date) {
@@ -100,8 +136,6 @@ class _CalenderState extends State<Calender> {
                   color: isSelected ? AppColors.primary : null,
                   // borderRadius: AppStyles.cardRadius100,
                   shape: BoxShape.circle),
-
-
               child: Padding(
                 padding: const EdgeInsets.all( 7),
                 child: InkWell(
