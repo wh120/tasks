@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task/core/constants/app_styles.dart';
 import 'package:task/core/constants/appcolors.dart';
 import 'package:task/core/utils/extensions/date_time_extensions.dart';
+import 'package:task/core/utils/extensions/style_extension.dart';
 import 'package:task/core/widgets/calender/domain/cubits/calender_cubit.dart';
 
 import '../../constants/AppTheme.dart';
@@ -38,6 +39,7 @@ class _DailyCalenderState extends State<DailyCalender> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(title: Text(widget.date.printMonth())),
       floatingActionButton: FloatingActionButton(
         onPressed: ()async {
@@ -50,7 +52,7 @@ class _DailyCalenderState extends State<DailyCalender> {
         child: const Icon(Icons.add),
       ),
       body: buildBody(),
-    );
+    ).addGradientInWidget();
   }
 
   buildBody() {

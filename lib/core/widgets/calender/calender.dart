@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:task/core/utils/extensions/date_time_extensions.dart';
+import 'package:task/core/utils/extensions/style_extension.dart';
 
 import '../../constants/AppTheme.dart';
 import '../../constants/appcolors.dart';
@@ -92,7 +93,7 @@ class _CalenderState extends State<Calender> {
               ),
             );
           }),
-    );
+    ).addGradientInWidget();
   }
 
   buildMonthView(DateTime date) {
