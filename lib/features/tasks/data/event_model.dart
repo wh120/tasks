@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task/core/utils/extensions/date_time_extensions.dart';
 
-import '../../../constants/appcolors.dart';
+import '../../../core/constants/appcolors.dart';
 
 class Event {
   final DateTime dateTime;

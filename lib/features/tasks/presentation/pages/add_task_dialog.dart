@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:task/core/widgets/calender/data/event_model.dart';
-
-
-
-import '../../constants/AppTheme.dart';
-import '../../utils/navigation/navigation.dart';
-
-import '../forms/RoundedDateTimeField.dart';
-import '../forms/RoundedTextField.dart';
-import 'domain/cubits/calender_cubit.dart';
+import 'package:task/features/tasks/data/event_model.dart';
+import '../../../../core/constants/AppTheme.dart';
+import '../../../../core/utils/navigation/navigation.dart';
+import '../../../../core/widgets/forms/RoundedDateTimeField.dart';
+import '../../../../core/widgets/forms/RoundedTextField.dart';
+import '../../domain/cubits/calender_cubit.dart';
 
 class AddTaskDialog extends StatefulWidget {
   final DateTime initialDateTime;

@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:task/core/utils/extensions/date_time_extensions.dart';
-import 'package:task/core/widgets/calender/data/event_model.dart';
+import 'package:task/features/tasks/data/event_model.dart';
 
 
 class ServiceLocator {
