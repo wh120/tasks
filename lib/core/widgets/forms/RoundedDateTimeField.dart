@@ -47,7 +47,7 @@ class _RoundedDateTimeFieldState extends State<RoundedDateTimeField> {
 
       initialValue:  widget.initialDate ,
       dateFormat: DateFormat("dd-MMMM-yyyy hh:mm a"),
-      firstDate: DateTime.now(),
+      //firstDate: DateTime.,
       lastDate: DateTime(2025),
       decoration: const InputDecoration(
 

@@ -131,74 +131,96 @@ class _DailyCalenderState extends State<DailyCalender> {
               itemBuilder: (c, index) {
                 return Column(
                   children: [
-                    Row(
-                      textBaseline: TextBaseline.ideographic,
-                      crossAxisAlignment:  CrossAxisAlignment.baseline,
-
+                    Stack(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                              dateTime.add(Duration(hours: index)).printTime()),
-                        ),
-                        Expanded(
-                            child: Column(
+                        Row(
+                          // textBaseline: TextBaseline.alphabetic,
+                          // crossAxisAlignment:  CrossAxisAlignment.baseline,
 
-                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Opacity(
-                              opacity: 0.2,
-                              child: Divider(
-                                color: AppColors.primary,
-                              ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Text(
+                                  dateTime.add(Duration(hours: index)).printTime()),
                             ),
-                            SizedBox(
-                              // height: 50,
-                              child: buildEventsInHour(
-                                  dateTime.add(Duration(hours: index)) , state.events),
+                            Expanded(
+                                child: Column(
+
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Opacity(
+                                  opacity: 0.2,
+                                  child: const Divider(
+                                    color: AppColors.primary,
+                                  ),
+                                ),
+
+                              ],
+                            )
                             )
                           ],
-                        ))
+                        ),
+                        Row(
+                          children: [
+                            Opacity(
+                              opacity: 0,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Text(
+                                    dateTime.add(Duration(hours: index)).printTime()),
+                              ),
+                            ),
+                            Expanded(
+                              child: buildEventsInHour(
+                                  dateTime.add(Duration(hours: index)) , state.events),
+                            ),
+                          ],
+                        )
                       ],
                     ),
+
                   ],
                 );
               });
         } else
-          return LoadingIndicator();
+          return const LoadingIndicator();
       },
     );
   }
 
-   buildEventsInHour(DateTime dateTime , List<Event> events) {
+   Widget buildEventsInHour(DateTime dateTime , List<Event> events) {
 
      List<Event> hourEvents = events.where((element) => element.dateTime.hour==dateTime.hour).toList();
 
 
-  if(hourEvents.isEmpty)return SizedBox(height: 40,);
+  if(hourEvents.isEmpty)return  SizedBox( height: 60,);
 
     return ScrollBuilder(
+      withScroll: false,
+      scrollDirection: Axis.horizontal,
       itemCount: hourEvents.length,
       itemBuilder: (c, index) {
-        return Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                    decoration: BoxDecoration(
-                        color: AppColors.secondary,
-                        borderRadius: AppStyles.cardRadius),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        hourEvents[index].name,
-                        style: AppTheme.headline6.copyWith(color: Colors.white),
-                      ),
-                    )),
-              ),
+        return Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Transform.translate(
+              offset:  Offset(0.0, hourEvents[index].dateTime.minute.toDouble()+10),
+              child: Container(
+                height: 60,
+
+
+                  decoration: BoxDecoration(
+                      color: AppColors.secondary,
+                      borderRadius: AppStyles.cardRadius),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      hourEvents[index].name,
+                      style: AppTheme.headline6.copyWith(color: Colors.white),
+                    ),
+                  )),
             ),
-          ],
+          ),
         );
       },
     );
