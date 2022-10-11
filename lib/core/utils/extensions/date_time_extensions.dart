@@ -51,6 +51,11 @@ extension DateTimeExtensions on DateTime {
   String printDayOFWeek(){
     return days[this.weekday];
   }
+
+  String printDateTime(){
+    return DateFormat('yyyy-MM-dd hh:mm a').format(this);
+  }
+
   String printTime(){
     return DateFormat('hh:mm a').format(this);
   }

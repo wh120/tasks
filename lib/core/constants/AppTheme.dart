@@ -15,6 +15,7 @@ class AppTheme {
       ),
     ),
 
+
     scaffoldBackgroundColor: Colors.white,
     // scaffoldBackgroundColor,
     highlightColor: AppColors.secondary[50],

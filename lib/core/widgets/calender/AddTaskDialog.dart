@@ -33,76 +33,80 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
     return Form(
       key: _formKey,
 
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
 
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text('Add Task' , style: AppTheme.headline4,),
-          ),
-           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: RoundedTextField(
-              hintText: 'Title',
-              controller: titleController,
-              validator: (value){
-                if(value == null || value!.isEmpty) return 'Empty title';
-              },
-
-
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('Add Task' , style: AppTheme.headline4,),
             ),
-          ),
-          const SizedBox(height: 10,),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: RoundedDateTimeField(
-              onPress: (DateTime dateTime) {
-                selectedDateTime=dateTime;
-              },
-              initialDate: widget.initialDateTime,
-            ),
-          ),
-          const SizedBox(height: 10,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+             Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: RoundedTextField(
+                hintText: 'Title',
+                controller: titleController,
+                validator: (value){
+                  if(value == null || value!.isEmpty) return 'Empty title';
+                },
 
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: OutlinedButton(
-                    child: const Text("Cancel"),
-                    onPressed: () {
-                      Navigation.pop();
 
-                    },
-                  ),
-                ),
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    child: const Text("Save"),
-                    onPressed: () {
-                      if(_formKey.currentState!.validate()){
-                        BlocProvider.of<CalenderCubit>(context, listen: false).addEvent(
-                            Event(name: titleController.text, dateTime: selectedDateTime)
-                        );
+            ),
+            const SizedBox(height: 10,),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: RoundedDateTimeField(
+                labelText: 'Date',
+                onPress: (DateTime dateTime) {
+                  selectedDateTime=dateTime;
+                },
+                initialDate: widget.initialDateTime,
+              ),
+            ),
+            const SizedBox(height: 10,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
 
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: OutlinedButton(
+                      child: const Text("Cancel"),
+                      onPressed: () {
                         Navigation.pop();
-                      }
 
-
-                    },
+                      },
+                    ),
                   ),
                 ),
-              ),
-            ],
-          )
-        ],
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      child: const Text("Save"),
+                      onPressed: () {
+                        if(_formKey.currentState!.validate()){
+                          BlocProvider.of<CalenderCubit>(context, listen: false).addEvent(
+                              Event(name: titleController.text, dateTime: selectedDateTime)
+                          );
+
+                          Navigation.pop();
+                        }
+
+
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

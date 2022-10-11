@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task/core/utils/extensions/style_extension.dart';
 
 
 import '../../constants/AppTheme.dart';
@@ -117,11 +118,14 @@ class MyDialog {
         context: Keys.navigatorKey.currentContext!,
         builder: (BuildContext context) {
           return AlertDialog(
+            contentPadding: EdgeInsets.zero,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0))),
 
-            content: body,
-          );
+            content: SingleChildScrollView(
+              child: body,
+            ).addGradientInWidget(),
+          ).addGradientInWidget();
         });
 
 
