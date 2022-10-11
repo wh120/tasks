@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:task/core/utils/extensions/date_time_extensions.dart';
 
-import 'data/event_model.dart';
+import '../../data/event_model.dart';
+
 
 class ViewTaskDialog extends StatefulWidget {
   final Event event;

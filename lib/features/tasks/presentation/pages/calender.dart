@@ -3,11 +3,11 @@ import 'package:get_it/get_it.dart';
 import 'package:task/core/utils/extensions/date_time_extensions.dart';
 import 'package:task/core/utils/extensions/style_extension.dart';
 
-import '../../constants/AppTheme.dart';
-import '../../constants/appcolors.dart';
-import '../../utils/navigation/navigation.dart';
+import '../../../../core/constants/AppTheme.dart';
+import '../../../../core/constants/appcolors.dart';
+import '../../../../core/utils/navigation/navigation.dart';
+ import '../../data/event_model.dart';
 import 'daily_calender.dart';
-import 'data/event_model.dart';
 
 class Calender extends StatefulWidget {
   final int startMonth;
@@ -35,25 +35,10 @@ class _CalenderState extends State<Calender> {
   void initState() {
     dateTime = DateTime(widget.year, widget.startMonth, 1);
     lastYear.value =widget.year;
-
-
     super.initState();
   }
 
-  Widget buildYear(int year){
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      lastYear.value = year;
-    });
-
-      return Column(
-        children: [
-          Divider(),
-          Center(child: Text(year.toString() , style: AppTheme.headline6,)),
-          Divider(),
-        ],
-      );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +49,6 @@ class _CalenderState extends State<Calender> {
             builder: (context, value, child) {
               return Text(value.toString());
             },
-
         ),
       ),
       body: ListView.builder(
@@ -94,6 +78,20 @@ class _CalenderState extends State<Calender> {
             );
           }),
     ).addGradientInWidget();
+  }
+  Widget buildYear(int year){
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      lastYear.value = year;
+    });
+
+    return Column(
+      children: [
+        Divider(),
+        Center(child: Text(year.toString() , style: AppTheme.headline6,)),
+        Divider(),
+      ],
+    );
   }
 
   buildMonthView(DateTime date) {

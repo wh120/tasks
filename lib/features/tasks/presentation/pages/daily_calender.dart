@@ -4,18 +4,15 @@ import 'package:task/core/constants/app_styles.dart';
 import 'package:task/core/constants/appcolors.dart';
 import 'package:task/core/utils/extensions/date_time_extensions.dart';
 import 'package:task/core/utils/extensions/style_extension.dart';
-import 'package:task/core/widgets/calender/domain/cubits/calender_cubit.dart';
 
-import '../../constants/AppTheme.dart';
-import '../../utils/navigation/navigation.dart';
-import '../dialogs/dialog.dart';
-import '../forms/RoundedDateTimeField.dart';
-import '../forms/RoundedTextField.dart';
-import '../loading/loading.dart';
-import '../scroll_builder/scroll_builder.dart';
-import 'AddTaskDialog.dart';
-import 'ViewTaskDialog.dart';
-import 'data/event_model.dart';
+ import '../../../../core/constants/AppTheme.dart';
+import '../../../../core/widgets/dialogs/dialog.dart';
+import '../../../../core/widgets/loading/loading.dart';
+import '../../../../core/widgets/scroll_builder/scroll_builder.dart';
+import '../../data/event_model.dart';
+import '../../domain/cubits/calender_cubit.dart';
+import 'add_task_dialog.dart';
+import 'view_task_dialog.dart';
 
 class DailyCalender extends StatefulWidget {
   final DateTime date;
@@ -28,27 +25,26 @@ class DailyCalender extends StatefulWidget {
 
 class _DailyCalenderState extends State<DailyCalender> {
   late int selectedDay;
-  late DateTime selectedDateTime ;
+  late DateTime selectedDateTime;
 
   void initState() {
-    selectedDateTime =  widget.date;
+    selectedDateTime = widget.date;
     selectedDay = widget.date.day;
-    BlocProvider.of<CalenderCubit>(context, listen: false).getDayEvents(widget.date);
+    BlocProvider.of<CalenderCubit>(context, listen: false)
+        .getDayEvents(widget.date);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(title: Text(widget.date.printMonth())),
       floatingActionButton: FloatingActionButton(
-        onPressed: ()async {
+        onPressed: () async {
           await MyDialog.showWidgetDialog(
-            body: AddTaskDialog(initialDateTime:selectedDateTime )
-            );
-          BlocProvider.of<CalenderCubit>(context, listen: false).getDayEvents(selectedDateTime);
-
+              body: AddTaskDialog(initialDateTime: selectedDateTime));
+          BlocProvider.of<CalenderCubit>(context, listen: false)
+              .getDayEvents(selectedDateTime);
         },
         child: const Icon(Icons.add),
       ),
@@ -58,14 +54,11 @@ class _DailyCalenderState extends State<DailyCalender> {
 
   buildBody() {
     return Column(
-      children: [
-        buildDays(),
-        Expanded(child: buildHours())],
+      children: [buildDays(), Expanded(child: buildHours())],
     );
   }
 
   buildDays() {
-
     return ScrollBuilder(
         scrollDirection: Axis.horizontal,
         itemCount: widget.date.daysInMonth,
@@ -74,22 +67,26 @@ class _DailyCalenderState extends State<DailyCalender> {
               onTap: () {
                 selectedDateTime = widget.date.setDay(index + 1);
                 selectedDay = widget.date.setDay(index + 1).day;
-                BlocProvider.of<CalenderCubit>(context, listen: false).getDayEvents(widget.date.setDay(index + 1));
+                BlocProvider.of<CalenderCubit>(context, listen: false)
+                    .getDayEvents(widget.date.setDay(index + 1));
                 setState(() {});
               },
               child: buildCard(widget.date.setDay(index + 1),
-                  isSelected: selectedDay == widget.date.setDay(index + 1).day));
+                  isSelected:
+                      selectedDay == widget.date.setDay(index + 1).day));
         });
   }
 
-   buildCard(DateTime dateTime, {bool isSelected = false}) {
+  buildCard(DateTime dateTime, {bool isSelected = false}) {
     return Container(
-      decoration:dateTime.isSameDate(DateTime.now())? BoxDecoration(
-        border: Border.all(
-          color: AppColors.primary, //                   <--- border color
-          width: 2.0,
-        ),
-      ):null,
+      decoration: dateTime.isSameDate(DateTime.now())
+          ? BoxDecoration(
+              border: Border.all(
+                color: AppColors.primary, //                   <--- border color
+                width: 2.0,
+              ),
+            )
+          : null,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
@@ -109,7 +106,8 @@ class _DailyCalenderState extends State<DailyCalender> {
                       shape: BoxShape.circle),
                   child: Text(
                     dateTime.day.toString(),
-                    style: AppTheme.bodyText1.copyWith(color: isSelected?Colors.white:null),
+                    style: AppTheme.bodyText1
+                        .copyWith(color: isSelected ? Colors.white : null),
                   ),
                 ),
               ],
@@ -124,7 +122,6 @@ class _DailyCalenderState extends State<DailyCalender> {
     DateTime dateTime = selectedDateTime;
 
     return BlocBuilder<CalenderCubit, CalenderState>(
-
       builder: (context, state) {
         if (state is GetEventsSuccessfully) {
           return ListView.builder(
@@ -140,25 +137,24 @@ class _DailyCalenderState extends State<DailyCalender> {
 
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Text(
-                                  dateTime.add(Duration(hours: index)).printTime()),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Text(dateTime
+                                  .add(Duration(hours: index))
+                                  .printTime()),
                             ),
                             Expanded(
                                 child: Column(
-
                               mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                const Opacity(
+                              children: const [
+                                Opacity(
                                   opacity: 0.2,
-                                  child: const Divider(
+                                  child: Divider(
                                     color: AppColors.primary,
                                   ),
                                 ),
-
                               ],
-                            )
-                            )
+                            ))
                           ],
                         ),
                         Row(
@@ -166,20 +162,22 @@ class _DailyCalenderState extends State<DailyCalender> {
                             Opacity(
                               opacity: 0,
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Text(
-                                    dateTime.add(Duration(hours: index)).printTime()),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Text(dateTime
+                                    .add(Duration(hours: index))
+                                    .printTime()),
                               ),
                             ),
                             Expanded(
                               child: buildEventsInHour(
-                                  dateTime.add(Duration(hours: index)) , state.events),
+                                  dateTime.add(Duration(hours: index)),
+                                  state.events),
                             ),
                           ],
                         )
                       ],
                     ),
-
                   ],
                 );
               });
@@ -189,12 +187,15 @@ class _DailyCalenderState extends State<DailyCalender> {
     );
   }
 
-   Widget buildEventsInHour(DateTime dateTime , List<Event> events) {
+  Widget buildEventsInHour(DateTime dateTime, List<Event> events) {
+    List<Event> hourEvents = events
+        .where((element) => element.dateTime.hour == dateTime.hour)
+        .toList();
 
-     List<Event> hourEvents = events.where((element) => element.dateTime.hour==dateTime.hour).toList();
-
-
-  if(hourEvents.isEmpty)return  SizedBox( height: 60,);
+    if (hourEvents.isEmpty)
+      return SizedBox(
+        height: 60,
+      );
 
     return ScrollBuilder(
       withScroll: false,
@@ -205,25 +206,32 @@ class _DailyCalenderState extends State<DailyCalender> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Transform.translate(
-              offset:  Offset(0.0, hourEvents[index].dateTime.minute.toDouble()+10),
-              child: Container(
-                height: 60,
-                  decoration: BoxDecoration(
-                      color: AppColors.secondary,
-                      borderRadius: AppStyles.cardRadius),
-                  child: InkWell(
-                    onTap: (){
-                      MyDialog.showWidgetDialog(body: ViewTaskDialog(event:hourEvents[index] ,)
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        hourEvents[index].name,
-                        style: AppTheme.headline6.copyWith(color: Colors.white),
+              offset: Offset(
+                  0.0, hourEvents[index].dateTime.minute.toDouble() + 10),
+              child: Opacity(
+                opacity: 0.7,
+                child: Container(
+                  margin: EdgeInsets.all(2),
+                    height: 60,
+                    decoration: BoxDecoration(
+                        color: AppColors.secondary,
+                        borderRadius: AppStyles.cardRadius),
+                    child: InkWell(
+                      onTap: () {
+                        MyDialog.showWidgetDialog(
+                            body: ViewTaskDialog(
+                          event: hourEvents[index],
+                        ));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          hourEvents[index].name,
+                          style: AppTheme.headline6.copyWith(color: Colors.white),
+                        ),
                       ),
-                    ),
-                  )),
+                    )),
+              ),
             ),
           ),
         );
