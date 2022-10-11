@@ -10,6 +10,7 @@ typedef DateValueChanged(DateTime dateTime);
 
 class RoundedDateTimeField extends StatefulWidget {
   final String? hintText;
+  final String? labelText;
   final Widget? icon;
   final DateValueChanged onPress;
   final DateTime initialDate;
@@ -18,7 +19,7 @@ class RoundedDateTimeField extends StatefulWidget {
       this.hintText,
       this.icon,
       required this.onPress,
-      required this.initialDate})
+      required this.initialDate, this.labelText})
       : super(key: key);
 
   @override
@@ -49,14 +50,14 @@ class _RoundedDateTimeFieldState extends State<RoundedDateTimeField> {
       dateFormat: DateFormat("dd-MMMM-yyyy hh:mm a"),
       //firstDate: DateTime.,
       lastDate: DateTime(2025),
-      decoration: const InputDecoration(
+      decoration:  InputDecoration(
 
         // contentPadding: EdgeInsets.all(16),
         hintStyle: TextStyle(color: Colors.black45),
         errorStyle: TextStyle(color: Colors.redAccent),
         border: OutlineInputBorder(),
         suffixIcon: Icon(Icons.calendar_today_rounded, color: AppColors.primary),
-        labelText: "Birth Date",
+        labelText: widget.labelText,
       ),
       mode: DateTimeFieldPickerMode.dateAndTime,
       autovalidateMode: AutovalidateMode.onUserInteraction,

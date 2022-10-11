@@ -14,6 +14,7 @@ import '../forms/RoundedTextField.dart';
 import '../loading/loading.dart';
 import '../scroll_builder/scroll_builder.dart';
 import 'AddTaskDialog.dart';
+import 'ViewTaskDialog.dart';
 import 'data/event_model.dart';
 
 class DailyCalender extends StatefulWidget {
@@ -207,16 +208,20 @@ class _DailyCalenderState extends State<DailyCalender> {
               offset:  Offset(0.0, hourEvents[index].dateTime.minute.toDouble()+10),
               child: Container(
                 height: 60,
-
-
                   decoration: BoxDecoration(
                       color: AppColors.secondary,
                       borderRadius: AppStyles.cardRadius),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      hourEvents[index].name,
-                      style: AppTheme.headline6.copyWith(color: Colors.white),
+                  child: InkWell(
+                    onTap: (){
+                      MyDialog.showWidgetDialog(body: ViewTaskDialog(event:hourEvents[index] ,)
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        hourEvents[index].name,
+                        style: AppTheme.headline6.copyWith(color: Colors.white),
+                      ),
                     ),
                   )),
             ),
